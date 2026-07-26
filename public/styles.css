@@ -1,7 +1,11 @@
 :root {
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --muted: #6b6b6b;
+  /* A near-black base with a hint of cool blue so it reads as considered,
+     not flat black. Text steps down in luminance for a clear hierarchy. */
+  --bg: #0c0d10;
+  --bg-glow: #16181d;
+  --heading: #f4f3f0; /* warm off-white — softer than pure #fff */
+  --lede: #b9b9c0; /* primary sentence: legible, quiet */
+  --muted: #6d6e77; /* secondary note: present but receding */
 }
 
 * {
@@ -16,10 +20,16 @@ body {
 }
 
 body {
-  background: var(--bg);
-  color: var(--fg);
+  background: radial-gradient(
+      120% 90% at 50% 0%,
+      var(--bg-glow) 0%,
+      var(--bg) 55%
+    )
+    no-repeat;
+  color: var(--heading);
   font-family: Georgia, "Times New Roman", Times, serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,22 +37,32 @@ body {
 }
 
 main {
-  max-width: 40rem;
-  padding: 2rem;
+  padding: 2rem 1.25rem;
   text-align: center;
 }
 
 h1 {
-  margin: 0 0 1rem;
-  font-size: clamp(3rem, 12vw, 6rem);
+  margin: 0 0 1.25rem;
+  font-size: clamp(3.25rem, 13vw, 7rem);
   font-weight: 400;
-  letter-spacing: 0.05em;
-  color: var(--fg);
+  letter-spacing: 0.04em;
+  text-indent: 0.04em; /* offset the trailing letter-spacing to stay optically centered */
+  color: var(--heading);
 }
 
 p {
   margin: 0;
-  font-size: clamp(1rem, 3vw, 1.25rem);
+  /* Sized in vw so the full sentence holds on a single line across widths. */
+  font-size: clamp(0.72rem, 2.7vw, 1.15rem);
   line-height: 1.6;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.lede {
+  color: var(--lede);
+}
+
+.muted {
   color: var(--muted);
 }
